@@ -1,8 +1,8 @@
 package edu.pdx.cs410J.lilak;
 
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 import edu.pdx.cs410J.InvokeMainTestCase;
+import org.junit.Test;
+
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -56,4 +56,17 @@ public class Project1Test extends InvokeMainTestCase {
       assertEquals(new Integer(0), result.getExitCode());
   }
 
-}
+  @Test
+    public void testFlightNumberIsNotInteger() {
+      MainMethodResult result = invokeMain("CS410Airline", "notinteger");
+      assertEquals(new Integer(1), result.getExitCode());
+      //result = invokeMain("CS410Airline",  "9879");
+      //assertEquals(new Integer(0), result.getExitCode());
+       //result = invokeMain("CS410Airline",  "-9879");
+       //assertEquals(new Integer(1), result.getExitCode());
+     }
+
+   @Test
+    public void testFlightNumberIsInteger() {
+        MainMethodResult result = invokeMain("CS410Airline", "9879");
+        assertEquals(new Integer(0), result.getExitCode());

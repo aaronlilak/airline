@@ -9,6 +9,43 @@ import edu.pdx.cs410J.AbstractAirline;
 
 public class Project1 {
 
+    //validate if an input parameter is valid....
+    public static boolean validate_input_param(String thisarg, int index) {
+        switch (index) {
+            case 0:
+                //just needs to be a String
+                return true;
+                //break;
+            case 1:
+                //flight number...needs to be integer
+                if (thisarg.matches("\\d+")) {
+                    //have a positive integer now..
+                    return true;
+                } else {
+                    System.out.print("Flight number " + thisarg + "is not a positive integer \n");
+                }
+                break;
+            case 2:
+                //three letter depart code
+                return true;
+                //break;
+            case 3:
+                //depart date and time
+                return true;
+                //break;
+            case 4:
+                //three letter destination code
+                return true;
+                //break;
+            case 5:
+                //arrival date and time
+                return true;
+                //break;
+
+        }
+        return false;
+    }
+
     public static String Readme_Message = "usage: java edu.pdx.cs410J.lilak.Project1 [options] <args>\n" +
             "args are (in this order):\n" +
             "name The name of the airline\n" +
@@ -23,31 +60,38 @@ public class Project1 {
             "Date and time should be in the format: mm/dd/yyyy hh:mm";
 
     public static void main(String[] args) {
-    Class c = AbstractAirline.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
-    int argcount=0;
-    boolean printit=false;
-    for (String arg : args) {
-      System.out.println(arg);
-      if (arg.contentEquals("-README")) {
-        printreadme();
+        Class c = AbstractAirline.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
+        int argcount = 0;
+        boolean printit = false;
+        for (String arg : args) {
+            System.out.println(arg);
+            if (arg.contentEquals("-README")) {
+                printreadme();
+                System.exit(0);
+            }
+            if (arg.contentEquals("-print")) {
+                printit = true;
+                continue;
+            }
+            //if you got here you should validate the input now
+            boolean goodinput = validate_input_param(arg, argcount);
+            if (goodinput==false) {
+                System.err.print("Problem with input stream");
+                System.exit(1);
+            }
+
+            argcount++;
+        }
+        if (printit == true) {
+            printairline();
+        }
+        if (argcount < 6) {
+            //expect 6 command line args for a complete flight input
+            System.err.println("Missing some command line arguments....require 6 arguments to initiate. Review the \"-README\" option");
+            System.exit(1);
+        }
         System.exit(0);
-      }
-      if (arg.contentEquals("-print")) {
-          printit=true;
-          continue;
-      }
-      argcount++;
     }
-    if (printit==true){
-        printairline();
-    }
-    if (argcount<6) {
-       //expect 6 command line args for a complete flight input
-       System.err.println("Missing some command line arguments....require 6 arguments to initiate. Review the \"-README\" option");
-       System.exit(1);
-    }
-    System.exit(0);
-  }
 
     public static void printreadme() {
         System.out.println(Readme_Message);
@@ -57,5 +101,5 @@ public class Project1 {
     public static void printairline() {
         return;
     }
-
 }
+
