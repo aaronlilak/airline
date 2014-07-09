@@ -7,6 +7,17 @@ public class Airline extends AbstractAirline {
     public Airline() {
         super();
     }
+
+    public Airline(String thisname) {
+        super();
+        name=thisname;
+    }
+
+    public void PrintAirline() {
+        System.out.print("Airline is named " + name + "\n");
+        return;
+    }
+
     public String getName() {
         return name;
     }

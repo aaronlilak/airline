@@ -9,7 +9,7 @@ public class Flight extends AbstractFlight {
         super();
     }
 
-    public Flight(String depart_timedate, String arrive_timedate, String origin, String destination, int flightnumber) {
+    public Flight(int flightnumber, String origin, String depart_timedate, String destination, String arrive_timedate) {
         super();
         depart_time_date=depart_timedate;
         arrive_time_date=arrive_timedate;
@@ -21,7 +21,7 @@ public class Flight extends AbstractFlight {
     public void PrintFlight() {
         System.out.print("Flight number "+ flight_number + " departs from " +
                 origin_code + " at "+ depart_time_date + " and arrives at " +
-                destination_code + " at " + arrive_time_date );
+                destination_code + " at " + arrive_time_date + "\n");
     }
 
     public int getNumber() {
