@@ -11,6 +11,7 @@ public class Flight extends AbstractFlight {
         super();
     }
 
+
     /** Alternative constructor which takes in flight information
      *
      * @param flightnumber  integer value of flight number

@@ -32,7 +32,8 @@ public class Airline extends AbstractAirline {
         return name;
     }
 
-    
+
+
     /**addFlight adds in a flight the flight collection */
     public void addFlight(edu.pdx.cs410J.AbstractFlight abstractFlight) {
         return;
