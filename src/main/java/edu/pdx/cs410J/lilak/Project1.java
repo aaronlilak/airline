@@ -76,6 +76,7 @@ public class Project1 {
             case 7:
                 if (!thisarg.matches("\\d+:\\d+")) {
                     System.out.print("Time not formatted correctly....should be hh:mm \n");
+                    break;
                 }
 
                 String [] tokens = thisarg.split(":");
@@ -153,7 +154,7 @@ public class Project1 {
         System.exit(0);
     }
 
-    
+
     /**printreadme() is method to print out the readme text */
     public static void printreadme() {
         System.out.println(Readme_Message);
