@@ -4,12 +4,20 @@ import edu.pdx.cs410J.AbstractAirline;
 
 
 /**
- * The main class for the CS410J airline Project
+ * The main class for the CS410J airline Project. This class wraps invocation and the parser functionality
  */
 
 public class Project1 {
 
     //validate if an input parameter is valid....
+
+    /** validate_input_param is function which takes in
+     *
+     * @param thisarg   String value of the argument
+     * @param index index in the input stream in which it arrived exclusive of options
+     * @return a boolean value if the input is in a valid format. This is determined dependent upon the argument. F
+     * For instance the date must be in mm/dd/yy format, time in military format must have hour <25, etc..
+     */
     public static boolean validate_input_param(String thisarg, int index) {
         //System.out.print("calling input validation on index of "+ index + " and arg of " + thisarg + "\n");
         switch (index) {
@@ -90,7 +98,9 @@ public class Project1 {
         return false;
     }
 
-    public static String Readme_Message = "usage: java edu.pdx.cs410J.lilak.Project1 [options] <args>\n" +
+    public static String Readme_Message = "This is implementation of CS410J program1. It allows for input of an" +
+            " airline and flight information. This program will be built upon in future projects. \n" +
+            "usage: java edu.pdx.cs410J.lilak.Project1 [options] <args>\n" +
             "args are (in this order):\n" +
             "name The name of the airline\n" +
             "flightNumber The flight number\n" +
@@ -103,6 +113,7 @@ public class Project1 {
             "-README Prints a README for this project and exits\n" +
             "Date and time should be in the format: mm/dd/yyyy hh:mm";
 
+    /** main invocation which takes in args from user */
     public static void main(String[] args) {
         Class c = AbstractAirline.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
         int argcount = 0;
@@ -142,11 +153,13 @@ public class Project1 {
         System.exit(0);
     }
 
+    /**printreadme() is method to print out the readme text */
     public static void printreadme() {
         System.out.println(Readme_Message);
         return;
     }
 
+    /** printairline() will print out the airline information */
     public static void printairline() {
         return;
     }

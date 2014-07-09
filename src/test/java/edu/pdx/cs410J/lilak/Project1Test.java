@@ -28,19 +28,19 @@ public class Project1Test extends InvokeMainTestCase {
 
   @Test
   public void testFiveCommandLineArgumentsError() {
-    MainMethodResult result = invokeMain("CS410Airline", "1503", "PDX", "20:07 7/5/2014", "MDW");
+    MainMethodResult result = invokeMain("CS410Airline", "1503", "PDX", "7/5/2014", "20:07", "MDW");
     assertEquals(new Integer(1), result.getExitCode());
   }
 
   @Test
-  public void testSixCommandLineArgumentsGood() {
-    MainMethodResult result = invokeMain("CS410Airline", "1503", "PDX", "20:07 7/5/2014", "MDW", "23:38 7/5/2014");
+  public void testEightCommandLineArgumentsGood() {
+    MainMethodResult result = invokeMain("CS410Airline", "1503", "PDX",  "7/5/2014", "18:07", "MDW", "7/5/2014", "20:07");
     assertEquals(new Integer(0), result.getExitCode());
   }
 
   @Test
    public void testFiveCommandLineArgumentsWithReadme() {
-     MainMethodResult result = invokeMain("-README","CS410Airline", "1503", "PDX", "20:07 7/5/2014", "MDW");
+     MainMethodResult result = invokeMain("-README","CS410Airline", "1503", "PDX", "7/5/2014", "20:07", "MDW");
      assertEquals(new Integer(0), result.getExitCode());
    }
 
@@ -66,7 +66,40 @@ public class Project1Test extends InvokeMainTestCase {
        //assertEquals(new Integer(1), result.getExitCode());
      }
 
-   @Test
-    public void testFlightNumberIsInteger() {
-        MainMethodResult result = invokeMain("CS410Airline", "9879");
-        assertEquals(new Integer(0), result.getExitCode());
+      @Test
+        public void testFlightNumberIsReallyInteger() {
+          MainMethodResult result = invokeMain("CS410Airline",  "9879", "PDX", "10/3/2014", "18:34", "SFO", "10/4/2014", "19:33");
+         assertEquals(new Integer(0), result.getExitCode());
+      }
+
+      @Test
+        public void testFlightNumberIsPositiveInteger() {
+          MainMethodResult result = invokeMain("CS410Airline",  "-9879", "PDX", "10/3/2014", "18:34", "SFO", "10/3/2014", "19:34");
+         assertEquals(new Integer(1), result.getExitCode());
+      }
+
+     @Test
+       public void testOriginIsFourLetters() {
+         MainMethodResult result = invokeMain("CS410Airline",  "9879", "ABCD", "10/3/2014", "18:34", "arg6", "10/3/2014", "19:34");
+        assertEquals(new Integer(1), result.getExitCode());
+     }
+
+    @Test
+      public void testOriginIsThreeLetters() {
+        MainMethodResult result = invokeMain("CS410Airline",  "9879", "ABC", "10/3/2014", "19:22", "SFO", "10/22/2014", "20:22");
+       assertEquals(new Integer(0), result.getExitCode());
+    }
+
+    @Test
+      public void testOriginIsNotAlpha() {
+        MainMethodResult result = invokeMain("CS410Airline",  "9879", "A8D", "10/3/2014", "19:22", "arg5", "10/4/2014", "19:55");
+       assertEquals(new Integer(1), result.getExitCode());
+    }
+
+
+
+
+
+
+
+}
