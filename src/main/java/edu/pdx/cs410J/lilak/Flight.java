@@ -2,6 +2,7 @@ package edu.pdx.cs410J.lilak;
 
 
 import edu.pdx.cs410J.AbstractFlight;
+import java.lang.StringBuilder;
 
 /** Flight class implements details of an airline flight*/
 public class Flight extends AbstractFlight {
@@ -34,6 +35,13 @@ public class Flight extends AbstractFlight {
         System.out.print("Flight number "+ flight_number + " departs from " +
                 origin_code + " at "+ depart_time_date + " and arrives at " +
                 destination_code + " at " + arrive_time_date + "\n");
+    }
+
+    public String GetFlightString() {
+        StringBuilder sb= new StringBuilder("");
+        sb.append(flight_number).append(" ").append(origin_code).append(" ").append(depart_time_date).append(" ");
+        sb.append(destination_code).append(" ").append(arrive_time_date).append("\n");
+        return sb.toString();
     }
 
     /** getNumber() returns the integer flight number */

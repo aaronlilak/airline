@@ -1,6 +1,13 @@
 package edu.pdx.cs410J.lilak;
 
 import edu.pdx.cs410J.AbstractAirline;
+import java.util.Collections;
+
+import edu.pdx.cs410J.AbstractFlight;
+import edu.pdx.cs410J.lilak.Flight;
+import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 /** Airline class is implementation of Airline. In project1 airline is given a name */
 public class Airline extends AbstractAirline {
@@ -17,14 +24,22 @@ public class Airline extends AbstractAirline {
 
      public Airline(String thisname) {
         super();
+        List flightlist = new ArrayList();
         name=thisname;
     }
 
     /**PrintAirline prints out the airline name
      */
     public void PrintAirline() {
-        System.out.print("Airline is named " + name + "\n");
+        System.out.print("name is "+ name);
         return;
+        /*
+        //System.out.println("Airline is named " + name + "\n");
+        for (Iterator it=flightlist.iterator(); it.hasNext();) {
+            System.out.print("going throug iterator");
+        }
+        return;
+        */
     }
 
     /**getName returns the name of the airline */
@@ -35,8 +50,16 @@ public class Airline extends AbstractAirline {
 
 
     /**addFlight adds in a flight the flight collection */
-    public void addFlight(edu.pdx.cs410J.AbstractFlight abstractFlight) {
+
+    public void addFlight(AbstractFlight newFlight) {
+        flightlist.add(newFlight);
+        System.out.print("flightlist is of length " + flightlist.size() + " now in abstract way");
         return;
+    }
+
+    public void addRealFlight(Flight newFlight) {
+        flightlist.add(newFlight);
+        System.out.print("flightlist is of length " + flightlist.size() + " now \n");
     }
 
     /**getFlights() will return the list of flights in future */
@@ -52,6 +75,9 @@ public class Airline extends AbstractAirline {
     //An airline has a name and contains a list of flights
     /**name is a String with name of the airline */
     private String name;
-    /**flightlist is an array of flights */
-    private Flight[] flightlist;
+    /**flightlist is a list of flights */
+
+    public List<AbstractFlight> flightlist = new ArrayList<AbstractFlight>();
+
+
 }

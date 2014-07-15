@@ -1,6 +1,7 @@
 package edu.pdx.cs410J.lilak;
 
 import edu.pdx.cs410J.AbstractAirline;
+import edu.pdx.cs410J.lilak.TextDumper;
 
 
 /**
@@ -112,15 +113,25 @@ public class Project1 {
             "options are (options may appear in any order):\n" +
             "-print Prints a description of the new flight\n" +
             "-README Prints a README for this project and exits\n" +
+            "-textFile filename reads/writes to the given file for initialization of an airline \n"+
             "Date and time should be in the format: mm/dd/yyyy hh:mm";
 
     /** main invocation which takes in args from user */
     public static void main(String[] args) {
         Class c = AbstractAirline.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
         int argcount = 0;
+        String filename=null;
         boolean printit = false;
         String [] plist = new String[8];
+        System.out.print("close to it");
+        Boolean setfilenamenext=false;
         for (String arg : args) {
+            if (setfilenamenext==true) {
+                setfilenamenext=false;
+                filename=arg;
+                System.out.print("Filename from parser is "+filename);
+                continue;
+            }
             //System.out.println(arg);
             if (arg.contentEquals("-README")) {
                 printreadme();
@@ -130,6 +141,11 @@ public class Project1 {
                 printit = true;
                 continue;
             }
+            if (arg.contentEquals("-textFile")) {
+                setfilenamenext=true;
+                continue;
+            }
+
             //if you got here you should validate the input now
             boolean goodinput = validate_input_param(arg, argcount);
             if (goodinput==false) {
@@ -138,6 +154,10 @@ public class Project1 {
             }
             plist[argcount]=arg;
             argcount++;
+        }
+        if (setfilenamenext==true) {
+            System.out.print("Problem specifying the filename \n");
+            System.exit(1);
         }
 
         if (argcount < 8) {
@@ -149,7 +169,18 @@ public class Project1 {
         Airline thisairline=new Airline(plist[0]);
         if (printit) thisairline.PrintAirline();
         Flight thisflight=new Flight(Integer.parseInt(plist[1]), plist[2], plist[3]+" "+plist[4], plist[5], plist[6]+" "+plist[7]);
-        if (printit) thisflight.PrintFlight();
+        //
+        thisairline.addFlight(thisflight);
+        //thisairline.addRealFlight(thisflight);
+        if (printit) {
+            thisflight.PrintFlight();
+            thisairline.PrintAirline();
+            String openfile = "myfile.dat";
+            TextDumper td2=new TextDumper(openfile);
+            System.out.print("the filename is "+ td2.getFilename() + "\n");
+            System.out.print("doing the dump here \n");
+            td2.dump(thisairline);
+        }
 
         System.exit(0);
     }
