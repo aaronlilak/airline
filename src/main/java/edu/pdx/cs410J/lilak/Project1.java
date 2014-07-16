@@ -151,7 +151,7 @@ public class Project1 {
             if (goodinput==false) {
                 System.err.print("Problem with input stream for arg "+ arg);
                 System.exit(1);
-            }
+            } 
             plist[argcount]=arg;
             if (argcount>0) havesomepartofflight=true;
             argcount++;
