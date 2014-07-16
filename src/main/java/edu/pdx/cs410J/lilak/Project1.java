@@ -149,7 +149,7 @@ public class Project1 {
             //if you got here you should validate the input now
             boolean goodinput = validate_input_param(arg, argcount);
             if (goodinput==false) {
-                System.err.print("Problem with input stream");
+                System.err.print("Problem with input stream for arg "+ arg);
                 System.exit(1);
             }
             plist[argcount]=arg;
