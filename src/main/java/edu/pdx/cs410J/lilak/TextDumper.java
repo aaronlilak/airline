@@ -9,16 +9,23 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 
+/** The TextDumper class implements AirlineDumper*/
+/** TextDumper will write to a file the contents of an airline*/
 public class TextDumper implements AirlineDumper {
+    /**constructor with no arguments*/
     public TextDumper() {
         return;
     }
+    /**constructor taking in a string for the filename to be created*/
     public TextDumper(String fname) {
         filename=fname;
     }
 
+    /**write method to be called from dump....this does the work */
+    /**takes in an Airline to be written */
     public void writeitout( Airline thisairline) {
         Writer writer = null;
         try {
@@ -28,34 +35,40 @@ public class TextDumper implements AirlineDumper {
             while (itr.hasNext()) {
                 Flight thisone=(Flight)itr.next();
                 String flightstring=thisone.GetFlightString();
-                writer.write(thisairline.getName() + " " +flightstring);
+                writer.write(thisairline.getName() + " " +flightstring + "\r\n");
             }
             //writer.write("Something");
-        } catch (IOException ex) {
-            System.out.print("Problem with opening/writing to the file");
+        } catch (Exception ex) {
+            System.out.print("There was a problem writing to the file "+ filename);
             System.exit(1);
-        } finally {
+        }
+        finally {
             try {writer.close();} catch (Exception ex) {}
         }
     }
 
+    /**dump method for abstractairline implementation */
     public void dump (AbstractAirline thisairline) {
         return;
     }
 
+    /**implementaiton of dump method for airline class*/
     public void dump (Airline thisairline) {
         writeitout(thisairline);
         return;
     }
 
+    /**setfilename will let you set the filename the dumper will create/write to*/
     public void setfilename(String file) {
         filename=file;
     }
 
+    /**getfilename will return the string filename you are using in dump*/
     public String getFilename() {
         return filename;
     }
 
+    /**filename string contains the String filename you are working with in TextDump (where you write to) */
     private String filename;
 
 }

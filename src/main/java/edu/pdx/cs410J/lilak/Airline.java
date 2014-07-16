@@ -16,6 +16,7 @@ public class Airline extends AbstractAirline {
     /**Constructor */
     public Airline() {
         super();
+        sizefl=0;
     }
 
     /**Constructor which takes a String argument for the name
@@ -26,20 +27,20 @@ public class Airline extends AbstractAirline {
         super();
         List flightlist = new ArrayList();
         name=thisname;
+         sizefl=0;
     }
 
     /**PrintAirline prints out the airline name
      */
     public void PrintAirline() {
-        System.out.print("name is "+ name);
-        return;
-        /*
-        //System.out.println("Airline is named " + name + "\n");
+        System.out.println("Airline is named " + name + "\n");
         for (Iterator it=flightlist.iterator(); it.hasNext();) {
-            System.out.print("going throug iterator");
+            //it.next();
+            Object thisone=it.next();
+            Flight temp=(Flight) thisone;
+            temp.PrintFlight();
         }
         return;
-        */
     }
 
     /**getName returns the name of the airline */
@@ -47,18 +48,21 @@ public class Airline extends AbstractAirline {
         return name;
     }
 
+    public Integer getSize() { return sizefl; }
+
 
 
     /**addFlight adds in a flight the flight collection */
 
     public void addFlight(AbstractFlight newFlight) {
         flightlist.add(newFlight);
-        System.out.print("flightlist is of length " + flightlist.size() + " now in abstract way");
+        sizefl=flightlist.size();
         return;
     }
 
     public void addRealFlight(Flight newFlight) {
         flightlist.add(newFlight);
+        sizefl=flightlist.size();
         System.out.print("flightlist is of length " + flightlist.size() + " now \n");
     }
 
@@ -76,6 +80,8 @@ public class Airline extends AbstractAirline {
     /**name is a String with name of the airline */
     private String name;
     /**flightlist is a list of flights */
+
+    private Integer sizefl;
 
     public List<AbstractFlight> flightlist = new ArrayList<AbstractFlight>();
 

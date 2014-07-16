@@ -100,7 +100,7 @@ public class Project1 {
         return false;
     }
 
-    public static String Readme_Message = "This is implementation of CS410J program1. It allows for input of an" +
+    public static String Readme_Message = "Program written by Aaron Lilak. This is implementation of CS410J program2. It allows for input of an" +
             " airline and flight information. This program will be built upon in future projects. \n" +
             "usage: java edu.pdx.cs410J.lilak.Project1 [options] <args>\n" +
             "args are (in this order):\n" +
@@ -123,13 +123,13 @@ public class Project1 {
         String filename=null;
         boolean printit = false;
         String [] plist = new String[8];
-        System.out.print("close to it");
+        plist[0]="Default Airline Name";
         Boolean setfilenamenext=false;
+        Boolean havesomepartofflight=false;
         for (String arg : args) {
             if (setfilenamenext==true) {
                 setfilenamenext=false;
                 filename=arg;
-                System.out.print("Filename from parser is "+filename);
                 continue;
             }
             //System.out.println(arg);
@@ -153,6 +153,7 @@ public class Project1 {
                 System.exit(1);
             }
             plist[argcount]=arg;
+            if (argcount>0) havesomepartofflight=true;
             argcount++;
         }
         if (setfilenamenext==true) {
@@ -160,26 +161,57 @@ public class Project1 {
             System.exit(1);
         }
 
-        if (argcount < 8) {
-            //expect 8 command line args for a complete flight input
-            System.err.println("Missing some command line arguments....require 8 arguments to initiate. Review the \"-README\" option");
-            System.exit(1);
+        if ((filename==null) || (havesomepartofflight==true)) {
+            if (argcount < 8) {
+                //expect 8 command line args for a complete flight input
+                System.err.println("Missing some command line arguments....require 8 arguments to initiate. Review the \"-README\" option");
+                System.exit(1);
+            }
         }
 
-        Airline thisairline=new Airline(plist[0]);
-        if (printit) thisairline.PrintAirline();
-        Flight thisflight=new Flight(Integer.parseInt(plist[1]), plist[2], plist[3]+" "+plist[4], plist[5], plist[6]+" "+plist[7]);
+        Airline ap2=new Airline();
+
+        //now read in the file....need to compare airline name here
+        if (filename != null) {
+            TextParser tp2 = new TextParser(filename);
+            try {
+                ap2=tp2.parse();
+            } catch(Exception ex) {
+                System.out.print("Exception thrown in the parser");
+                System.exit(1);
+            }
+        }
+        if (ap2.getSize()==0) {
+            ap2.setName(plist[0]);
+        } else {
+            if (!plist[0].contentEquals(ap2.getName())) {
+                System.out.print("Mismatch in the airline names between the commandline and the file "+ filename + " " + ap2.getName() + " vs " + plist[0]+ "\n");
+                System.exit(1);
+            }
+        }
+
+        if (havesomepartofflight==true) {
+            Flight thisflight=new Flight(Integer.parseInt(plist[1]), plist[2], plist[3]+" "+plist[4], plist[5], plist[6]+" "+plist[7]);
+            ap2.addFlight(thisflight);
+        }
+        /*
+        Airline airlinetest=new Airline();
+        try {
+            airlinetest = tp2.parse();
+        } catch (edu.pdx.cs410J.ParserException pe) {
+            System.out.print("Problem with the parsing of the file " + filename);
+            System.exit(1);
+        }
+        */
         //
-        thisairline.addFlight(thisflight);
         //thisairline.addRealFlight(thisflight);
+
+        if (filename != null) {
+            TextDumper td2=new TextDumper(filename);
+            td2.dump(ap2);
+        }
         if (printit) {
-            thisflight.PrintFlight();
-            thisairline.PrintAirline();
-            String openfile = "myfile.dat";
-            TextDumper td2=new TextDumper(openfile);
-            System.out.print("the filename is "+ td2.getFilename() + "\n");
-            System.out.print("doing the dump here \n");
-            td2.dump(thisairline);
+            ap2.PrintAirline();
         }
 
         System.exit(0);
