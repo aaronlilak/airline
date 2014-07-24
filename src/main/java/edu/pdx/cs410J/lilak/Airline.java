@@ -25,7 +25,8 @@ public class Airline extends AbstractAirline {
 
      public Airline(String thisname) {
         super();
-        List flightlist = new ArrayList();
+        List flightlist = new ArrayList<Flight>();
+        //ArrayList<AbstractFlight> flightlist = new ArrayList<AbstractFlight>();
         name=thisname;
          sizefl=0;
     }
@@ -39,6 +40,16 @@ public class Airline extends AbstractAirline {
             Object thisone=it.next();
             Flight temp=(Flight) thisone;
             temp.PrintFlight();
+        }
+        Flight lastflight=null;
+        for (Iterator it=flightlist.iterator(); it.hasNext();) {
+            Object thisone=it.next();
+            Flight temp=(Flight) thisone;
+            int myval=temp.compareTo(lastflight);
+            if (temp!=null && lastflight!=null) {
+                System.out.print("comparison is " + myval + " between flights of " + temp.GetFlightString() + " and " + lastflight.GetFlightString() + "\n");
+            }
+            lastflight=temp;
         }
         return;
     }
@@ -54,17 +65,20 @@ public class Airline extends AbstractAirline {
 
     /**addFlight adds in a flight the flight collection */
 
-    public void addFlight(AbstractFlight newFlight) {
+    public void addFlight(Flight newFlight) {
+        //System.out.print("Adding flight in the flight way \n");
         flightlist.add(newFlight);
         sizefl=flightlist.size();
+
+        Collections.sort(flightlist);
         return;
     }
 
-    public void addRealFlight(Flight newFlight) {
-        flightlist.add(newFlight);
-        sizefl=flightlist.size();
-        System.out.print("flightlist is of length " + flightlist.size() + " now \n");
+    public void addFlight(AbstractFlight newFlight) {
+        System.out.print("Do you ever see this \n");
+        return;
     }
+
 
     /**getFlights() will return the list of flights in future */
     public java.util.Collection getFlights() {
@@ -83,7 +97,9 @@ public class Airline extends AbstractAirline {
 
     private Integer sizefl;
 
-    public List<AbstractFlight> flightlist = new ArrayList<AbstractFlight>();
+    public List<Flight> flightlist = new ArrayList<Flight>();
+    //public List<Flight> flightlist = new ArrayList<Flight>();
+    //public List<AbstractFlight> flightlist;
 
 
 }

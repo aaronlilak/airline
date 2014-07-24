@@ -1,14 +1,12 @@
 package edu.pdx.cs410J.lilak;
 
 import edu.pdx.cs410J.AbstractAirline;
-import edu.pdx.cs410J.lilak.TextDumper;
-import edu.pdx.cs410J.AirportNames;
 
 /**
  * The main class for the CS410J airline Project. This class wraps invocation and the parser functionality
  */
 
-public class Project1 {
+public class Project3 {
 
 
     //validate if an input parameter is valid....
@@ -129,6 +127,7 @@ public class Project1 {
     /** main invocation which takes in args from user */
 
     public static void main(String[] args) {
+        //System.out.print("p3 main \n");
         Class c = AbstractAirline.class;  // Refer to one of Dave's classes so that we can be sure it is on the classpath
         int argcount = 0;
         String filename=null;

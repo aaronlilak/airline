@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.StringTokenizer;
+import java.util.Collections;
 
 import edu.pdx.cs410J.ParserException;
 /**TextParser class implements AirlineParser*/
@@ -31,13 +32,13 @@ public class TextParser implements AirlineParser {
                 String line;
                 Integer linecount=0;
                 while ((line = in.readLine()) != null) {
-                    String[] paramlist = new String[8];
+                    String[] paramlist = new String[10];
                     StringTokenizer st = new StringTokenizer(line);
                     int countval = 0;
                     if (st.countTokens() == 0) continue; //windows is giving me a bunch of empty lines
-                    if (st.countTokens() != 8) {
+                    if (st.countTokens() != 10) {
                         System.out.print("There is a problem in the input file " + filename + " which has " + st.countTokens());
-                        System.out.print(" arguments instead of 8. Note that the options -print, -filename, and -README are not valid ");
+                        System.out.print(" arguments instead of 10. Note that the options -print, -filename, and -README are not valid ");
                         System.out.print("from inside a text file input....only from the command line \n");
                         System.out.print("The PROBLEM LINE WAS: " + line);
                         System.exit(1);
@@ -47,9 +48,9 @@ public class TextParser implements AirlineParser {
                         countval++;
                     }
                     //now validate your input
-                    for (int i = 0; i < 8; i++) {
+                    for (int i = 0; i < 10; i++) {
                         Boolean goodarg = true;
-                        goodarg = Project1.validate_input_param(paramlist[i], i);
+                        goodarg = Project3.validate_input_param(paramlist[i], i);
                         if (!goodarg) {
                             System.out.print("Problem with the formatting in the file " + filename + " \n");
                             System.exit(1);
@@ -63,7 +64,7 @@ public class TextParser implements AirlineParser {
                             System.exit(1);
                         }
                     }
-                    Flight thisflight = new Flight(Integer.parseInt(paramlist[1]), paramlist[2], paramlist[3] + " " + paramlist[4], paramlist[5], paramlist[6] + " " + paramlist[7]);
+                    Flight thisflight = new Flight(Integer.parseInt(paramlist[1]), paramlist[2], paramlist[3] + " " + paramlist[4]+" "+paramlist[5], paramlist[6], paramlist[7] + " " + paramlist[8]+" "+paramlist[9]);
                     airlinetest.addFlight(thisflight);
                     linecount++;
                 }

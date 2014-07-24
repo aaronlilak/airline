@@ -26,16 +26,24 @@ public class TextDumper implements AirlineDumper {
 
     /**write method to be called from dump....this does the work */
     /**takes in an Airline to be written */
-    public void writeitout( Airline thisairline) {
+    public void writeitout( Airline thisairline, Boolean ispretty) {
         Writer writer = null;
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(filename), "utf-8"));
             Iterator itr=thisairline.flightlist.iterator();
-            while (itr.hasNext()) {
-                Flight thisone=(Flight)itr.next();
-                String flightstring=thisone.GetFlightString();
-                writer.write(thisairline.getName() + " " +flightstring + "\r\n");
+            if (!ispretty) {
+                while (itr.hasNext()) {
+                    Flight thisone = (Flight) itr.next();
+                    String flightstring = thisone.GetFlightString();
+                    writer.write(thisairline.getName() + " " + flightstring + "\r\n");
+                }
+            } else {
+                while (itr.hasNext()) {
+                    Flight thisone = (Flight) itr.next();
+                    String flightstring = thisone.GetPrettyString();
+                    writer.write(thisairline.getName() + " " + flightstring + "\r\n");
+                }
             }
             //writer.write("Something");
         } catch (Exception ex) {
@@ -54,8 +62,12 @@ public class TextDumper implements AirlineDumper {
 
     /**implementaiton of dump method for airline class*/
     public void dump (Airline thisairline) {
-        writeitout(thisairline);
+        writeitout(thisairline, false);
         return;
+    }
+
+    public void prettydump(Airline thisairline) {
+        writeitout(thisairline, true);
     }
 
     /**setfilename will let you set the filename the dumper will create/write to*/
